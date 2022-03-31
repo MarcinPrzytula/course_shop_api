@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //routes
-app.use('/api/', apiRouter);
+// app.use('/api/', apiRouter);
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
 //server
 app.listen(port, () => {
