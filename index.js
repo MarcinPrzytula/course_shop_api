@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 const whitelist = [
   'https://marcinprzytula.github.io',
   'http://localhost:3001',
+  'https://shrouded-temple-52756.herokuapp.com/',
 ];
 const corsOptions = {
   origin: function (origin, callback) {
