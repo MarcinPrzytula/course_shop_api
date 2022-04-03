@@ -15,8 +15,10 @@ app.use(bodyParser.json());
 //fix cors domeny rozne
 const whitelist = [
   'https://marcinprzytula.github.io',
-  'http://localhost:3001',
+  'http://localhost:3000',
   'https://shrouded-temple-52756.herokuapp.com/',
+  '91.150.165.38',
+  '91.150.165.38/32',
 ];
 const corsOptions = {
   origin: function (origin, callback) {
