@@ -1,56 +1,68 @@
 const User = require('../db/models/user');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 module.exports = {
-  async getAllUsers(req, res) {
-    let doc;
-    try {
-      doc = await User.find({});
-    } catch (err) {
-      return res
-        .status(500)
-        .json({ message: err.message });
-    }
-
-    res.status(200).json(doc);
-  },
-
-  async getUser(req, res) {
-    const id = req.params.id;
-    const user = await User.findOne({ _id: id });
-
-    res.status(200).json(user);
-  },
-
-  async addUser(req, res) {
-    let newUser;
-    try {
-      newUser = new User(req.body);
-      await newUser.save();
-    } catch (err) {
-      return res
-        .status(422)
-        .json({ message: err.message });
-    }
-    res.status(201).json(newUser);
+  addUser(req, res) {
+    User.findOne(
+      { login: req.body.username },
+      async (err, doc) => {
+        if (err) throw err;
+        if (doc) res.send('User Already Exsists');
+        if (!doc) {
+          const hashedPassword = await bcrypt.hash(
+            req.body.password,
+            10
+          );
+          const newUser = new User({
+            login: req.body.username,
+            password: hashedPassword,
+            purchasedCourses: [],
+            shoppingCart: [],
+            logged: false,
+            selectedCourse: ' ',
+          });
+          await newUser.save();
+          res.send('User Created');
+        }
+      }
+    );
   },
 
   async updateUser(req, res) {
-    const {
-      id,
-      logged,
-      purchasedCourses,
-      shoppingCart,
-    } = req.body;
+    const { _id, purchasedCourses, shoppingCart } =
+      req.body;
 
-    let updateUser = await User.findOne({ id });
+    let updateUser = await User.findOne({ _id });
 
-    updateUser.logged = logged;
-    updateUser.purchasedCourses =
-      purchasedCourses;
+    updateUser.purchasedCourses = purchasedCourses;
     updateUser.shoppingCart = shoppingCart;
 
     updateUser.save();
 
     res.status(201).json(updateUser);
+  },
+
+  loginUser(req, res, next) {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) throw err;
+      if (!user) res.send('No User Exsist');
+      else {
+        req.logIn(user, err => {
+          if (err) throw err;
+          res.send('Succesfully Autenticated');
+          console.log(req.user);
+        });
+      }
+    })(req, res, next);
+  },
+
+  getUserData(req, res) {
+    res.send(req.user);
+  },
+
+  logOutUser(req, res) {
+    req.logOut(); // <-- not req.logout();
+    res.end();
   },
 };
