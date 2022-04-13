@@ -37,8 +37,6 @@ module.exports = {
       shoppingCart,
       selectedCourse,
     } = req.body;
-    console.log('xxxxxxxxxxxxxxxxx');
-    console.log(req.body);
     let updateUser = await User.findOne({ _id });
 
     updateUser.purchasedCourses = purchasedCourses;
@@ -57,8 +55,7 @@ module.exports = {
       else {
         req.logIn(user, err => {
           if (err) throw err;
-          res.send('Succesfully Autenticated');
-          console.log(req.user);
+          res.send(req.user);
         });
       }
     })(req, res, next);
