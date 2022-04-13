@@ -21,10 +21,6 @@ const CourseSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  comment: {
-    type: String,
-    required: true,
-  },
 });
 
 const Course = mongoose.model('courses', CourseSchema);

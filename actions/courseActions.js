@@ -11,4 +11,15 @@ module.exports = {
     // res.render('Work');
     res.status(200).json(doc);
   },
+
+  async updateCourse(req, res) {
+    const { _id, rating } = req.body;
+    let updateCourse = await Course.findOne({ _id });
+
+    updateCourse.rating = rating;
+
+    updateCourse.save();
+
+    res.status(201).json(updateCourse);
+  },
 };

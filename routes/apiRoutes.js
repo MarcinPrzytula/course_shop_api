@@ -12,6 +12,8 @@ router.post('/register', userActions.addUser);
 
 router.put('/user/:id', userActions.updateUser);
 
+router.put('/course/:id', courseActions.updateCourse);
+
 router.post('/login', userActions.loginUser);
 
 router.get('/logout', userActions.logOutUser);

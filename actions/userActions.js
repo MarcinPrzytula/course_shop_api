@@ -1,6 +1,7 @@
 const User = require('../db/models/user');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const { update } = require('../db/models/user');
 
 module.exports = {
   addUser(req, res) {
@@ -30,13 +31,19 @@ module.exports = {
   },
 
   async updateUser(req, res) {
-    const { _id, purchasedCourses, shoppingCart } =
-      req.body;
-
+    const {
+      _id,
+      purchasedCourses,
+      shoppingCart,
+      selectedCourse,
+    } = req.body;
+    console.log('xxxxxxxxxxxxxxxxx');
+    console.log(req.body);
     let updateUser = await User.findOne({ _id });
 
     updateUser.purchasedCourses = purchasedCourses;
     updateUser.shoppingCart = shoppingCart;
+    updateUser.selectedCourse = selectedCourse;
 
     updateUser.save();
 
