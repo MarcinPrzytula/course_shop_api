@@ -26,7 +26,7 @@ const DB =
 app.use(
   session({
     store: new MongoStore({
-      uri: 'mongodb://127.0.0.1:27017/courseShop',
+      uri: DB,
       collection: 'mySessions',
     }),
     secret: 'secretcode',
