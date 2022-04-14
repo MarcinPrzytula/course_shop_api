@@ -31,7 +31,7 @@ app.use(
     }),
     secret: 'secretcode',
     httpOnly: false,
-    // cookie: { secure: true },
+    cookie: { sameSite: 'none', secure: true },
     resave: false,
     saveUninitialized: true,
   })
