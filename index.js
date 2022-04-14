@@ -1,5 +1,8 @@
 require('./db/mongoose');
-const { database } = require('./config');
+const DB =
+  process.env.DATABASE ||
+  'mongodb://127.0.0.1:27017/courseShop';
+const { database, port } = require('./config');
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
@@ -8,23 +11,25 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 // const session = require('cookie-session');
-const MongoStore = require('connect-mongo');
+// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongodb-session')(
+  session
+);
 const bodyParser = require('body-parser');
 
 const apiRouter = require('./routes/apiRoutes.js');
-const { port } = require('./config');
 const app = express();
 
 app.use(bodyParser.json()); // parser - Content-type: application/json
 
 app.use(
   session({
+    store: new MongoStore({
+      mongoUrl: DB,
+    }),
     secret: 'secretcode',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: 'mongodb://127.0.0.1:27017/courseShop',
-    }),
   })
 );
 app.use(cookieParser('secretcode'));
