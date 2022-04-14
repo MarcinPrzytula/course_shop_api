@@ -30,7 +30,7 @@ app.use(
       collection: 'mySessions',
     }),
     secret: 'secretcode',
-    httpOnly: false,
+    // httpOnly: false,
     cookie: { sameSite: 'none', secure: true },
     resave: false,
     saveUninitialized: true,
