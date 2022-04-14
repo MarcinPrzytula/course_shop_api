@@ -63,7 +63,7 @@ module.exports = {
 
   getUserData(req, res) {
     console.log(req.user);
-    res.send(req._passport.session.user);
+    res.send(req.user);
   },
 
   logOutUser(req, res) {

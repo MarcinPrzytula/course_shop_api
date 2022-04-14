@@ -29,6 +29,7 @@ app.use(
       collection: 'mySessions',
     }),
     secret: 'secretcode',
+    cookie: { secure: true },
     resave: false,
     saveUninitialized: true,
   })
