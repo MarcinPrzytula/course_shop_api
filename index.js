@@ -5,7 +5,9 @@ const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
-const session = require('express-session');
+// const session = require('express-session');
+const session = require('cookie-session');
+
 const bodyParser = require('body-parser');
 
 const apiRouter = require('./routes/apiRoutes.js');
