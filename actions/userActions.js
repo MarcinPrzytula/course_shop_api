@@ -63,7 +63,7 @@ module.exports = {
 
   getUserData(req, res) {
     console.log(req.user);
-    console.log(req);
+    console.log(req.passport);
     res.send(req.user);
   },
 
