@@ -1,13 +1,14 @@
 require('./db/mongoose');
+const { database } = require('./config');
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
-// const session = require('express-session');
-const session = require('cookie-session');
-
+const session = require('express-session');
+// const session = require('cookie-session');
+const MongoStore = require('connect-mongo');
 const bodyParser = require('body-parser');
 
 const apiRouter = require('./routes/apiRoutes.js');
@@ -21,6 +22,9 @@ app.use(
     secret: 'secretcode',
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://127.0.0.1:27017/courseShop',
+    }),
   })
 );
 app.use(cookieParser('secretcode'));
