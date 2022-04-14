@@ -29,7 +29,7 @@ app.use(
       collection: 'mySessions',
     }),
     secret: 'secretcode',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );
