@@ -49,21 +49,25 @@ module.exports = {
   },
 
   loginUser(req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
-      if (err) throw err;
-      if (!user) res.send('No User Exsist');
-      else {
-        req.logIn(user, err => {
-          if (err) throw err;
-          res.send(req.user);
-        });
+    passport.authenticate(
+      'local',
+      { session: true },
+      (err, user, info) => {
+        if (err) throw err;
+        if (!user) res.send('No User Exsist');
+        else {
+          req.logIn(user, err => {
+            if (err) throw err;
+            res.send(req.user);
+          });
+        }
       }
-    })(req, res, next);
+    )(req, res, next);
   },
 
   getUserData(req, res) {
     console.log(req.user);
-    console.log(req.passport);
+
     res.send(req.user);
   },
 
