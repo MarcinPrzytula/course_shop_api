@@ -25,8 +25,12 @@ const DB =
 
 app.use(
   session({
+    store: new MongoStore({
+      uri: 'mongodb://127.0.0.1:27017/courseShop',
+      collection: 'mySessions',
+    }),
     secret: 'secretcode',
-    httpOnly: true, // dont let browser javascript access cookie ever
+    httpOnly: false,
     // cookie: { secure: true },
     resave: false,
     saveUninitialized: true,
