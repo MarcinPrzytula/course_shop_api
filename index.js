@@ -1,7 +1,6 @@
 require('./db/mongoose');
 const DB =
   'mongodb+srv://<username>:<password>@cluster0.0ywy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-console.log(DB);
 const { database, port } = require('./config');
 const express = require('express');
 const cors = require('cors');
@@ -24,9 +23,9 @@ app.use(bodyParser.json()); // parser - Content-type: application/json
 
 app.use(
   session({
-    // store: new MongoStore({
-    //   mongoUrl: DB,
-    // }),
+    store: new MongoStore({
+      mongoUrl: DB,
+    }),
     secret: 'secretcode',
     resave: false,
     saveUninitialized: true,
