@@ -22,14 +22,12 @@ app.use(bodyParser.json()); // parser - Content-type: application/json
 
 const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
+
 app.use(
   session({
-    store: new MongoStore({
-      uri: DB,
-      collection: 'mySessions',
-    }),
     secret: 'secretcode',
-    cookie: { secure: true },
+    httpOnly: true, // dont let browser javascript access cookie ever
+    // cookie: { secure: true },
     resave: false,
     saveUninitialized: true,
   })
