@@ -1,7 +1,6 @@
 require('./db/mongoose');
 const DB =
-  process.env.DATABASE ||
-  'mongodb://127.0.0.1:27017/courseShop';
+  'mongodb+srv://<username>:<password>@cluster0.0ywy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 console.log(DB);
 const { database, port } = require('./config');
 const express = require('express');
