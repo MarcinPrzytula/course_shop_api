@@ -62,7 +62,8 @@ module.exports = {
   },
 
   getUserData(req, res) {
-    res.send(req.user);
+    console.log(req.user);
+    res.send(req.body.user);
   },
 
   logOutUser(req, res) {
