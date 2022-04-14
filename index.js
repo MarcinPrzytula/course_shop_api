@@ -32,7 +32,7 @@ app.use(
     secret: 'secretcode',
     // httpOnly: false,
     cookie: { sameSite: 'none', secure: true },
-    resave: false,
+    resave: true,
     saveUninitialized: true,
   })
 );
