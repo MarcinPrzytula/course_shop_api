@@ -17,7 +17,7 @@ app.use(bodyParser.json()); // parser - Content-type: application/json
 app.use(
   session({
     secret: 'secretcode',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );

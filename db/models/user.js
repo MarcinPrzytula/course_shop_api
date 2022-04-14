@@ -17,10 +17,6 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  logged: {
-    type: Boolean,
-    required: true,
-  },
   selectedCourse: {
     type: String,
     required: true,
