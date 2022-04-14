@@ -23,15 +23,15 @@ const app = express();
 app.use(bodyParser.json()); // parser - Content-type: application/json
 
 app.use(
-  session({
-    store: new MongoStore({
-      mongoUrl: DB,
-    }),
-    secret: 'secretcode',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+//   session({
+//     store: new MongoStore({
+//       mongoUrl: DB,
+//     }),
+//     secret: 'secretcode',
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 app.use(cookieParser('secretcode'));
 app.use(passport.initialize());
 app.use(passport.session());
