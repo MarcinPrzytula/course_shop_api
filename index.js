@@ -28,7 +28,7 @@ app.use(cookieParser());
 const cookie = {
   secure: true,
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-  sameSite: false,
+  sameSite: 'None',
 };
 app.use(
   session({
