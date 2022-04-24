@@ -23,11 +23,12 @@ app.use(bodyParser.json()); // parser - Content-type: application/json
 const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
 
-app.use(cookieParser('secretcode'));
+app.set('trust proxy', 1);
+app.use(cookieParser());
 const cookie = {
   secure: true,
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-  sameSite: 'none',
+  sameSite: false,
 };
 app.use(
   session({
