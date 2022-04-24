@@ -24,7 +24,7 @@ const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
 
 // app.set('trust proxy', 1);
-app.use(cookieParser('secretcode'));
+app.use(cookieParser());
 const cookie = {
   secure: true,
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
@@ -37,7 +37,6 @@ app.use(
       uri: DB,
       collection: 'mySessions',
     }),
-
     cookie,
     resave: false,
     saveUninitialized: true,
@@ -51,8 +50,6 @@ require('./passportConfig')(passport);
 const whitelist = [
   'https://marcinprzytula.github.io',
   'http://localhost:3000',
-  'https://shrouded-temple-52756.herokuapp.com/',
-  '91.150.165.38',
 ];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -66,41 +63,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// var corsOptionsDelegate = function (
-//   req,
-//   callback
-// ) {
-//   const corsOptions = {
-//     methods: [
-//       'GET',
-//       'PUT',
-//       'POST',
-//       'DELETE',
-//       'HEAD',
-//       'PATCH',
-//     ],
-//     allowedHeaders: [
-//       'Content-Type',
-//       'Authorization',
-//     ],
-//     credentials: true,
-//   };
-
-//   const myIpAddress =
-//     req.connection.remoteAddress; // This is where you get the IP address from the request
-//   if (
-//     whitelist.indexOf(myIpAddress) !== -1 ||
-//     whitelist.indexOf(req.header('Origin') !== -1)
-//   ) {
-//     corsOptions.origin = true;
-//   } else {
-//     corsOptions.origin = false;
-//   }
-//   callback(null, corsOptions);
-// };
-
-// app.use(cors(corsOptionsDelegate));
 
 //routes
 app.use('/api/', apiRouter);
