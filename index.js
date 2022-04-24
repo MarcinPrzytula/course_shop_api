@@ -23,7 +23,7 @@ app.use(bodyParser.json()); // parser - Content-type: application/json
 const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
 
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 app.use(cookieParser());
 const cookie = {
   secure: true,
