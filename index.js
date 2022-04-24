@@ -24,16 +24,22 @@ const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
 
 app.use(cookieParser('secretcode'));
+const cookie = {
+  secure: true,
+  maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+  sameSite: 'none',
+};
 app.use(
   session({
-    // store: new MongoStore({
-    //   uri: DB,
-    //   collection: 'mySessions',
-    // }),
     secret: 'secretcode',
+    store: new MongoStore({
+      uri: DB,
+      collection: 'mySessions',
+    }),
     // httpOnly: false,
-    cookie: { sameSite: 'none', secure: true },
-    resave: true,
+    // cookie: { sameSite: 'none', secure: true },
+    cookie,
+    resave: false,
     saveUninitialized: true,
   })
 );
