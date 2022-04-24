@@ -34,12 +34,11 @@ app.use(
   session({
     secret: 'secretcode',
     store: new MongoStore({
-      uri: DB,
+      uri: 'mongodb://127.0.0.1:27017/courseShop',
       collection: 'mySessions',
     }),
-    // httpOnly: false,
-    // cookie: { sameSite: 'none', secure: true },
-    cookie,
+
+    // cookie,
     resave: false,
     saveUninitialized: true,
   })

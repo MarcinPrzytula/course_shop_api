@@ -55,6 +55,7 @@ module.exports = {
       else {
         req.logIn(user, err => {
           if (err) throw err;
+
           res.send(req.user);
         });
       }
