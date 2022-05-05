@@ -21,8 +21,8 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "start": "node index.js",
-    "nodemonStart": "nodemon index.js"
+    "start": "node index.js ",
+    "nodemonStart": "nodemon index.js MONGO_PASSWORD=yourpasswd node app"
   },
   "author": "",
   "license": "ISC"

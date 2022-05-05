@@ -25,6 +25,8 @@ const DB =
 
 app.set('trust proxy', 1);
 // app.use(cookieParser());
+console.log(DB);
+console.log(database);
 
 app.use(cookieParser('secretcode'));
 
