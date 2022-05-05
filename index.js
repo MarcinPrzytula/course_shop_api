@@ -24,7 +24,10 @@ const DB =
   'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
 
 // app.set('trust proxy', 1);
-app.use(cookieParser());
+//app.use(cookieParser());
+
+app.use(cookieParser('secretcode'));
+
 const cookie = {
   secure: true,
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week

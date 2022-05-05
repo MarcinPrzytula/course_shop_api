@@ -15,12 +15,13 @@ router.put('/user/:id', userActions.updateUser);
 
 router.put('/course/:id', courseActions.updateCourse);
 
-// router.post(
-//   '/login',
-//   passport.authenticate('local'),
-//   userActions.loginUser
-// );
-router.post('/login', userActions.loginUser);
+router.post(
+  '/login',
+  passport.authenticate('local'),
+  userActions.loginUser
+);
+
+// router.post('/login', userActions.loginUser);
 router.get('/logout', userActions.logOutUser);
 
 module.exports = router;
