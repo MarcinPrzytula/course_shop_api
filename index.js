@@ -8,8 +8,6 @@ const passportLocal = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
-// const session = require('cookie-session');
-// const MongoStore = require('connect-mongo');
 const MongoStore = require('connect-mongodb-session')(
   session
 );
@@ -18,15 +16,11 @@ const bodyParser = require('body-parser');
 const apiRouter = require('./routes/apiRoutes.js');
 const app = express();
 
-app.use(bodyParser.json()); // parser - Content-type: application/json
-
-const DB =
-  'mongodb+srv://admin:admin325@cluster0.0ywy7.mongodb.net/courseShop?retryWrites=true&w=majority';
+app.use(bodyParser.json());
 
 app.set('trust proxy', 1);
+
 // app.use(cookieParser());
-console.log(DB);
-console.log(database);
 
 app.use(cookieParser('secretcode'));
 
