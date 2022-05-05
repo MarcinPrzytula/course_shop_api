@@ -39,7 +39,7 @@ app.use(
   session({
     secret: 'secretcode',
     store: new MongoStore({
-      uri: DB,
+      uri: database,
       collection: 'mySessions',
     }),
     cookie,
