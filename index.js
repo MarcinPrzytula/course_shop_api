@@ -22,27 +22,35 @@ app.set('trust proxy', 1);
 
 app.use(cookieParser('secretcode'));
 
-let cookie = null;
+const localSession = {
+  secret: 'secretcode',
+  store: new MongoStore({
+    uri: database,
+    collection: 'mySessions',
+  }),
+  resave: false,
+  saveUninitialized: true,
+};
 
-if (database) {
-  cookie = {
+const productionSession = {
+  secret: 'secretcode',
+  store: new MongoStore({
+    uri: database,
+    collection: 'mySessions',
+  }),
+  cookie: {
     secure: true,
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     sameSite: 'none',
-  };
-}
+  },
+  resave: false,
+  saveUninitialized: true,
+};
+
 app.use(
-  session({
-    secret: 'secretcode',
-    store: new MongoStore({
-      uri: database,
-      collection: 'mySessions',
-    }),
-    cookie,
-    resave: false,
-    saveUninitialized: true,
-  })
+  session(database ? productionSession : localSession)
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
