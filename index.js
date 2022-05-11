@@ -4,9 +4,7 @@ const { database, port } = require('./config');
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
-const passportLocal = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
-const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(
   session
@@ -24,11 +22,15 @@ app.set('trust proxy', 1);
 
 app.use(cookieParser('secretcode'));
 
-const cookie = {
-  secure: true,
-  maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-  sameSite: 'none',
-};
+let cookie = null;
+
+if (database) {
+  cookie = {
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    sameSite: 'none',
+  };
+}
 app.use(
   session({
     secret: 'secretcode',
@@ -68,5 +70,5 @@ app.use('/api/', apiRouter);
 
 //server
 app.listen(port, () => {
-  console.log(`Server listen... http://localhost:${port}`);
+  console.log(`Server listen... port:${port}`);
 });

@@ -31,6 +31,8 @@ module.exports = function (passport) {
   passport.deserializeUser((id, cb) => {
     User.findOne({ _id: id }, (err, user) => {
       if (err) throw err;
+
+      //  return this instead of the user if you want to hide any information like password
       const userInformation = {
         username: user.login,
       };

@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node index.js ",
-    "nodemonStart": "nodemon index.js MONGO_PASSWORD=yourpasswd node app"
+    "nodemonStart": "nodemon index.js"
   },
   "author": "",
   "license": "ISC"
