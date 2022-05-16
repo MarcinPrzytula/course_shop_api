@@ -48,7 +48,9 @@ const productionSession = {
 };
 
 app.use(
-  session(database ? productionSession : localSession)
+  session(
+    process.env.DATABASE ? productionSession : localSession
+  )
 );
 
 app.use(passport.initialize());
