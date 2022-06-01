@@ -5,38 +5,27 @@ const { update } = require('../db/models/user');
 
 module.exports = {
   addUser(req, res) {
-    User.findOne(
-      { login: req.body.username },
-      async (err, doc) => {
-        if (err) throw err;
-        if (doc) res.send('User Already Exsists');
-        if (!doc) {
-          const hashedPassword = await bcrypt.hash(
-            req.body.password,
-            10
-          );
-          const newUser = new User({
-            login: req.body.username,
-            password: hashedPassword,
-            purchasedCourses: [],
-            shoppingCart: [],
-            logged: false,
-            selectedCourse: ' ',
-          });
-          await newUser.save();
-          res.send('User Created');
-        }
+    User.findOne({ login: req.body.username }, async (err, doc) => {
+      if (err) throw err;
+      if (doc) res.send('User Already Exsists');
+      if (!doc) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const newUser = new User({
+          login: req.body.username,
+          password: hashedPassword,
+          purchasedCourses: [],
+          shoppingCart: [],
+          logged: false,
+          selectedCourse: ' ',
+        });
+        await newUser.save();
+        res.send('User Created');
       }
-    );
+    });
   },
 
   async updateUser(req, res) {
-    const {
-      _id,
-      purchasedCourses,
-      shoppingCart,
-      selectedCourse,
-    } = req.body;
+    const { _id, purchasedCourses, shoppingCart, selectedCourse } = req.body;
     let updateUser = await User.findOne({ _id });
 
     updateUser.purchasedCourses = purchasedCourses;
@@ -51,7 +40,7 @@ module.exports = {
   loginUser(req, res, next) {
     passport.authenticate('local', (err, user, info) => {
       if (err) throw err;
-      if (!user) res.send('No User Exsist');
+      if (!user) res.send('Invalid username or password');
       else {
         req.logIn(user, err => {
           if (err) throw err;
